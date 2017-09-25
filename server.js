@@ -10,6 +10,27 @@ const knex = require('./knex');
 const bcrypt = require ('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
+
+let success=(dbUser, res)=>{
+  console.log('success');
+  let authUser = {
+    id: dbUser.id,
+    username: dbUser.username,
+    greeting: `${dbUser.username}... you're the best!!`
+  };
+  let token = jwt.sign(authUser, process.env.JWT_KEY);
+  res.cookie('token', token, {httpOnly: true, secure: true});
+  console.log(`${dbUser.username} logged in @ ${new Date().toString()}`);
+  return res.send(authUser);
+};
+
+let failure=(res)=>{
+  console.log('failure');
+  res.setHeader('content-type', 'text/plain');
+  return res.status(400).send('Bad username or password');
+}
+
+
 require('dotenv').config();
 app.use(cors({
   allowedOrigins: ["localhost:*", "surge.sh", "herokuapp.com"]
@@ -33,27 +54,12 @@ app.post('/login', (req,res,next) => {
   .select('*')
   .where('username', username)
   .then(data => {
-    if(data.length === 0){
-      res.setHeader('content-type', 'text/plain');
-      return res.status(400).send('Bad username or password');
-    } else if (bcrypt.compareSync(password, data[0].hashed_password)){
-      let authUser = {
-        id: data[0].id,
-        username: data[0].username,
-        greeting: `${data[0].username}... you're the best!!`
-      };
-      let token = jwt.sign(authUser, process.env.JWT_KEY);
-      res.cookie('token', token, {httpOnly: true, secure: true});
-      console.log(`${data[0].username} logged in.`);
-      return res.send(authUser);
-    } else {
-      res.setHeader('content-type', 'text/plain');
-      return res.status(400).send('Bad username or password');
-    }
-  })
-  .catch(function (err) {
-      return next(err);
-    });
+    if(data.length === 0) return failure(res);
+    bcrypt.compare(password, data[0].hashed_password)
+    .then((userOK)=>{
+      userOK ? success(data[0], res) : failure(res);
+    })
+  });
 });
 
 app.get('/logout', (req,res,send)=>{
@@ -74,13 +80,14 @@ app.post('/sites', (req,res,next)=>{
       }
       let newSite = req.body;
       //add to knex here
+      res.send()
     });
   } else {
     return res.redirect('http://creepypasta.wikia.com/wiki/Never_Become_a_Hacker');
   }
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6969;
 app.listen(port);
 
 console.log(`Listening on ${port}`);
