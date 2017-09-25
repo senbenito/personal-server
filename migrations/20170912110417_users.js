@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary();
     table.string('username').notNullable().unique();
     table.specificType('hashed_password', 'char(60)').notNullable();
+    table.boolean('admin').notNullable().defaultTo(false);
   });
 };
 
