@@ -11,6 +11,14 @@ const bcrypt = require ('bcryptjs');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
+require('dotenv').config();
+app.use(cors({
+  allowedOrigins: ["localhost:*", "surge.sh", "herokuapp.com"]
+}));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 let success=(dbUser, res)=>{
   console.log('success');
   let authUser = {
@@ -29,15 +37,6 @@ let failure=(res)=>{
   res.setHeader('content-type', 'text/plain');
   return res.status(400).send('Bad username or password');
 }
-
-
-require('dotenv').config();
-app.use(cors({
-  allowedOrigins: ["localhost:*", "surge.sh", "herokuapp.com"]
-}));
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/sites', (req,res,next)=>{
   knex('sites')
