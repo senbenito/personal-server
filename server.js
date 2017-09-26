@@ -40,7 +40,7 @@ let failure=(res)=>{
 
 app.get('/sites', (req,res,next)=>{
   knex('sites')
-  .select('url', 'title')
+  .select('*')
   .then(data=>{
     res.send(data[0]);
   })
