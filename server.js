@@ -42,7 +42,7 @@ app.get('/sites', (req,res,next)=>{
   knex('sites')
   .select('*')
   .then(data=>{
-    res.send(data[0]);
+    res.send(data);
   })
 })
 
