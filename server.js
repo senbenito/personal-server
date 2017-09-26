@@ -7,7 +7,7 @@ const cors = require('express-cors')
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const knex = require('./knex');
-const bcrypt = require ('bcrypt');
+const bcrypt = require ('bcryptjs');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
