@@ -24,7 +24,8 @@ let success=(dbUser, res)=>{
   let authUser = {
     id: dbUser.id,
     username: dbUser.username,
-    greeting: `${dbUser.username}... you're the best!!`
+    greeting: `${dbUser.username}... you're the best!!`,
+    url: '/addwebsite'
   };
   let token = jwt.sign(authUser, process.env.JWT_KEY);
   res.cookie('token', token, {httpOnly: true, secure: true});
