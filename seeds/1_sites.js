@@ -7,11 +7,11 @@ exports.seed = function(knex, Promise) {
     title:'Serene'},
 
     {id: 7,
-    url: 'http://checkout-vr.surge.sh/',
+    url: 'https://checkout-vr.surge.sh/',
     title:'Checkout VR'},
 
     {id: 6,
-    url: 'http://musicator.surge.sh/',
+    url: 'https://musicator.surge.sh/',
     title: 'Musicator'},
 
     {id: 5,
@@ -23,15 +23,15 @@ exports.seed = function(knex, Promise) {
     title: 'Drinking Buddies'},
 
     {id: 3,
-    url: 'http://eatertain_me.surge.sh/',
+    url: 'https://eatertain_me.surge.sh/',
     title: 'Eatertain.Me'},
 
     {id: 2,
-    url: 'http://utopian-locket.surge.sh/',
+    url: 'https://utopian-locket.surge.sh/',
     title: 'Pyrate Personality Test'},
 
     {id: 1,
-    url: 'http://senbenito.surge.sh/',
+    url: 'https://senbenito.surge.sh/',
     title: "Let's meet Shannon!"},
 
   ];
