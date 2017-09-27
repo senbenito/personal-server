@@ -3,7 +3,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const cors = require('express-cors')
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const knex = require('./knex');
@@ -12,9 +12,7 @@ const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
 require('dotenv').config();
-app.use(cors({
-  allowedOrigins: ["localhost:*", "surge.sh", "herokuapp.com"]
-}));
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
