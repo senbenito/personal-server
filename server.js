@@ -19,25 +19,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let success=(dbUser, res)=>{
-  console.log('success');
-  let authUser = {
-    id: dbUser.id,
-    username: dbUser.username,
-    greeting: `${dbUser.username}... you're the best!!`,
-    url: '/addwebsite'
-  };
-  let token = jwt.sign(authUser, process.env.JWT_KEY);
-  res.cookie('token', token, {httpOnly: true, secure: true});
-  console.log(`${dbUser.username} logged in @ ${new Date().toString()}`);
-  return res.send(authUser);
-};
-
-let failure=(res)=>{
-  console.log('failure');
-  res.setHeader('content-type', 'text/plain');
-  return res.status(400).send('Bad username or password');
-}
 
 app.get('/sites', (req,res,next)=>{
   knex('sites')
@@ -62,6 +43,27 @@ app.post('/login', (req,res,next) => {
   });
 });
 
+let success=(dbUser, res)=>{
+  console.log('success');
+  let authUser = {
+    id: dbUser.id,
+    username: dbUser.username,
+    greeting: `${dbUser.username}... you're the best!!`,
+    url: '/addwebsite'
+  };
+  jwt.sign(authUser, process.env.JWT_KEY, (err, token)=>{
+    res.cookie('token', token, {httpOnly: true});
+    console.log(`${dbUser.username} logged in @ ${new Date().toString()}`);
+    return res.send(authUser);
+  });
+};
+
+let failure=(res)=>{
+  console.log('failure');
+  res.setHeader('content-type', 'text/plain');
+  return res.status(400).send('Bad username or password');
+}
+
 app.get('/logout', (req,res,send)=>{
   let token = req.cookies.token;
   const decoded = jwt.verify(token, process.env.JWT_KEY);
@@ -72,7 +74,7 @@ app.get('/logout', (req,res,send)=>{
 })
 
 app.post('/sites', (req,res,next)=>{
-  console.log(req.cookies.token);
+  console.log(req.cookies);
   if (req.cookies.token) {
     jwt.verify(req.cookies.token, process.env.JWT_KEY, function (err,decoded) {
       if (err) {
