@@ -78,9 +78,19 @@ app.post('/sites', (req,res,next)=>{
         res.clearCookie('token');
         return res.redirect('http://creepypasta.wikia.com/wiki/Never_Become_a_Hacker');
       }
-      let newSite = req.body;
+      let newsite = {
+        url: req.body.url,
+        title: req.body.title
+      };
       //add to knex here
-      res.send()
+      knex('sites')
+      .insert(newsite)
+      .then(data => {
+        let addedSite = {
+          url: '/',
+        }
+        res.send(addedSite);
+      });
     });
   } else {
     return res.redirect('http://creepypasta.wikia.com/wiki/Never_Become_a_Hacker');
