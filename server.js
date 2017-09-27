@@ -52,7 +52,7 @@ let success=(dbUser, res)=>{
     url: '/addwebsite'
   };
   jwt.sign(authUser, process.env.JWT_KEY, (err, token)=>{
-    res.cookie('token', token, {httpOnly: true});
+    res.cookie('token', token, {httpOnly: true, secure: true});
     console.log(`${dbUser.username} logged in @ ${new Date().toString()}`);
     return res.send(authUser);
   });
@@ -86,12 +86,12 @@ app.post('/sites', (req,res,next)=>{
         url: req.body.url,
         title: req.body.title
       };
-      //add to knex here
       knex('sites')
       .insert(newsite)
       .then(data => {
       let addedSite = {
         url: '/',
+        title: data.title,
       }
       res.send(addedSite);
       });
