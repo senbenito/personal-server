@@ -86,10 +86,10 @@ app.post('/sites', (req,res,next)=>{
       knex('sites')
       .insert(newsite)
       .then(data => {
-        let addedSite = {
-          url: '/',
-        }
-        res.send(addedSite);
+      let addedSite = {
+        url: '/',
+      }
+      res.send(addedSite);
       });
     });
   } else {
