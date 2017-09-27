@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
   let data = [
     {id: 1,
     username: 'senbenito',
-    hashed_password: '$2a$06$/RHAD2z3kA3Ab1ivk3BiSeFpNKNiF0UdhbOSv4d299rTGEF17Gyb6'
+    hashed_password: '$2a$10$RwAVIjNsWi0JZGGszVsuZePcGbkeqkIdXw6Fh532ki7vAhg2Q4opm'
     },
   ];
 
