@@ -72,11 +72,13 @@ app.get('/logout', (req,res,send)=>{
 })
 
 app.post('/sites', (req,res,next)=>{
+  console.log(req.cookies.token);
   if (req.cookies.token) {
     jwt.verify(req.cookies.token, process.env.JWT_KEY, function (err,decoded) {
       if (err) {
+        console.log("somebody else is here...");
         res.clearCookie('token');
-        return res.redirect('http://creepypasta.wikia.com/wiki/Never_Become_a_Hacker');
+        return res.status(401).send();
       }
       let newsite = {
         url: req.body.url,
@@ -93,7 +95,8 @@ app.post('/sites', (req,res,next)=>{
       });
     });
   } else {
-    return res.redirect('http://creepypasta.wikia.com/wiki/Never_Become_a_Hacker');
+    console.log('no token = GTFO');
+    return res.status(401).send();
   }
 });
 
