@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
   let data = [
 
     {id: 8,
-    url: 'https://serene-green.herokuapp.com/',
+    url: 'https://serene-capstone.herokuapp.com/',
     title:'Serene'},
 
     {id: 7,
