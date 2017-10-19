@@ -22,7 +22,20 @@ app.get('/sites', (req,res,next)=>{
   knex('sites')
   .select('*')
   .then(data=>{
-    res.send(data);
+    let fifthOrbit = [];
+    let fourthOrbit = [];
+    let thirdOrbit = [];
+    let secondOrbit = [];
+    for (let i=0; i<data.length; i++){
+      if (i<4) {fifthOrbit.push(data[i]);
+      } else if (i<6) {
+        fourthOrbit.push(data[i]);
+      } else if (i<9) {thirdOrbit.push(data[i]);
+      } else {secondOrbit.push(data[i]);}
+    };
+
+    let websites = [fifthOrbit, fourthOrbit, thirdOrbit, secondOrbit];
+    res.send(websites);
   })
 })
 
