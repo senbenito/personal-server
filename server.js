@@ -26,19 +26,15 @@ app.get('/sites', (req,res,next)=>{
     let fourthOrbit = [];
     let thirdOrbit = [];
     let secondOrbit = [];
+    console.log(data);
 
-    for (userid in data) {
-      (data.userid !== "") ?
-          data.toast = `PSSSSSSSST.......... username = '${data.userid}'        password = '${data.password}'`
-        :
-          data.toast = ""
-    };
-    // data.forEach( e => {
-    //   (data.userid !== "") ?
-    //     data.toast = `PSSSSSSSST.......... username = '${data.userid}'        password = '${data.password}'`
-    //   :
-    //     data.toast = ""
-    //   )};
+    data.forEach( e => {
+      (e.userid !== "") ?
+        e.toast = `PSSSSSSSST.......... username = '${e.userid}'        password = '${e.password}'`
+      :
+        e.toast = ""
+      });
+
     for (let i=0; i<data.length; i++){
       if (i<4) {fifthOrbit.push(data[i]);
       } else if (i<6) {
