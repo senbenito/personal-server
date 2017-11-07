@@ -26,7 +26,15 @@ app.get('/sites', (req,res,next)=>{
     let fourthOrbit = [];
     let thirdOrbit = [];
     let secondOrbit = [];
-    console.log(data);
+    data.reverse();
+    data.unshift({
+      id: 0,
+      url: "",
+      title: "",
+      description: "",
+      userid: "",
+      password: ""
+    });
 
     data.forEach( e => {
       (e.userid !== "") ?
