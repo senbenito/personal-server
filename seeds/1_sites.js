@@ -1,6 +1,13 @@
 exports.seed = function(knex, Promise) {
 
   let data = [
+    {id: 0,
+    url: 'https://senbenito.surge.sh/',
+    title: "Let's meet Shannon!",
+    description: "This was my precourse website before g[49]. I used MadLibs' format to create a simple HTML form with some Javascript interactivity. I leave this here as a reminder of where I started...",
+    userid: "",
+    password: ""},
+
     {id: 1,
     url: 'https://senbenito.surge.sh/',
     title: "Let's meet Shannon!",
