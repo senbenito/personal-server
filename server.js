@@ -17,6 +17,14 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// --> https://senbenito-server.herokuapp.com/
+app.get('/decks', req, res, next)=>{
+  knex('/decks')
+  .select('*')
+  .then(data=>{
+    res.send(data);
+  });
+};
 
 app.get('/sites', (req,res,next)=>{
   knex('sites')
