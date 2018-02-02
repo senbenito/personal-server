@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // --> https://senbenito-server.herokuapp.com/
-app.get('/decks', req, res, next)=>{
+app.get('/decks', (req, res, next)=>{
   const initialData = {
     Addition: {
       title: 'Addition',
@@ -48,14 +48,14 @@ app.get('/decks', req, res, next)=>{
     }
   };
   res.send(initialData);
-  
+
   // TODO: break initialData into relational tables
   // knex('/decks')
   // .select('*')
   // .then(data=>{
   //   res.send(data);
   // });
-};
+});
 
 app.get('/sites', (req,res,next)=>{
   knex('sites')
